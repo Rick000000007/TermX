@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.AttributeSet;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,7 +19,7 @@ public class TerminalFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        terminalView = new TerminalView(requireContext());
+        terminalView = new TerminalView(requireContext(), null);
         return terminalView;
     }
 }
