@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TermX - Mobile Linux Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .tab-bar { background: white; border-top: 1px solid #e2e8f0; position: fixed; bottom: 0; width: 100%; display: flex; justify-content: space-around; padding: 10px 0; z-index: 50; }
+        .tab-item { display: flex; flex-direction: column; align-items: center; color: #64748b; font-size: 10px; cursor: pointer; }
+        .tab-item.active { color: #166534; }
+        .screen { display: none; padding-bottom: 70px; min-height: 100vh; }
+        .screen.active { display: block; }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- Terminal Screen -->
+    <div id="terminal" class="screen active">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-4">
+                <div class="bg-white border border-green-800 rounded px-3 py-1 flex items-center gap-2">
+                    <i class="fas fa-terminal text-green-800"></i>
+                    <span class="text-sm font-medium">Terminal 3</span>
+                </div>
+                <i class="fas fa-plus text-green-800 text-lg"></i>
+            </div>
+            <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm min-h-[300px] shadow-inner mb-4">
+                <div class="text-blue-400 mb-1">TermX v1.0.0 - Mobile Linux Terminal</div>
+                <div class="text-amber-500 mb-4">Type "help" for available commands</div>
+                <div class="flex items-center gap-2">
+                    <span class="text-green-500">~$</span>
+                    <span class="text-white border-l-2 border-white h-5 animate-pulse"></span>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Input Layout</span>
+                    <img src="/public/images/Screenshot_20260225_170553_Expo_Go_1772038585044.jpg" class="w-full rounded-lg border shadow-sm">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Command History</span>
+                    <img src="/public/images/Screenshot_20260225_150747_Expo_Go_1772038585123.jpg" class="w-full rounded-lg border shadow-sm">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Session View</span>
+                    <img src="/public/images/Screenshot_20260225_150440_Expo_Go_1772038585185.jpg" class="w-full rounded-lg border shadow-sm">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">System Output</span>
+                    <img src="/public/images/Screenshot_20260225_150437_Expo_Go_1772038585212.jpg" class="w-full rounded-lg border shadow-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Packages Screen -->
+    <div id="packages" class="screen">
+        <div class="p-4">
+            <h1 class="text-2xl font-bold mb-4">Packages</h1>
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Package Browser</span>
+                    <img src="/public/images/Screenshot_20260225_170602_Expo_Go_1772038585058.jpg" class="w-full rounded-xl border shadow-sm">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Installed Languages</span>
+                    <img src="/public/images/Screenshot_20260225_150444_Expo_Go_1772038585199.jpg" class="w-full rounded-xl border shadow-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SSH Screen -->
+    <div id="ssh" class="screen">
+        <div class="p-4">
+            <h1 class="text-2xl font-bold mb-4">SSH</h1>
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Key Management</span>
+                    <img src="/public/images/Screenshot_20260225_170640_Expo_Go_1772038585029.jpg" class="w-full rounded-xl border shadow-sm">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Active Connections</span>
+                    <img src="/public/images/Screenshot_20260225_160159_Expo_Go_1772038585111.jpg" class="w-full rounded-xl border shadow-sm">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">New Connection</span>
+                    <img src="/public/images/Screenshot_20260225_153654_Expo_Go_1772038585136.jpg" class="w-full rounded-xl border shadow-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settings" class="screen">
+        <div class="p-4">
+            <h1 class="text-2xl font-bold mb-6">Settings</h1>
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Theme & Interface</span>
+                    <img src="/public/images/Screenshot_20260225_170655_Expo_Go_1772038585000.jpg" class="w-full rounded-xl border shadow-sm">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Terminal Customization</span>
+                    <img src="/public/images/Screenshot_20260225_170305_Expo_Go_1772038585074.jpg" class="w-full rounded-xl border shadow-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="tab-bar shadow-lg">
+        <div class="tab-item active" onclick="showScreen('terminal', this)">
+            <i class="fas fa-terminal text-lg mb-1"></i>
+            <span class="font-medium">Terminal</span>
+        </div>
+        <div class="tab-item" onclick="showScreen('packages', this)">
+            <i class="fas fa-box text-lg mb-1"></i>
+            <span class="font-medium">Packages</span>
+        </div>
+        <div class="tab-item" onclick="showScreen('ssh', this)">
+            <i class="fas fa-key text-lg mb-1"></i>
+            <span class="font-medium">SSH</span>
+        </div>
+        <div class="tab-item" onclick="showScreen('settings', this)">
+            <i class="fas fa-cog text-lg mb-1"></i>
+            <span class="font-medium">Settings</span>
+        </div>
+    </div>
+
+    <script>
+        function showScreen(screenId, el) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
