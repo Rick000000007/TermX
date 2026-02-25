@@ -18,7 +18,7 @@ public class TerminalFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        terminalView = new TerminalView(requireContext());
+        terminalView = new TerminalView(requireContext(), null);
         return terminalView;
     }
 }
