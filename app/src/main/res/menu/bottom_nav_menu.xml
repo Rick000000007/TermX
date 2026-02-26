@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_terminal"
+        android:icon="@drawable/ic_terminal"
+        android:title="Terminal" />
+
+    <item
+        android:id="@+id/nav_packages"
+        android:icon="@drawable/ic_package"
+        android:title="Packages" />
+
+    <item
+        android:id="@+id/nav_files"
+        android:icon="@drawable/ic_folder"
+        android:title="Files" />
+
+    <item
+        android:id="@+id/nav_ssh"
+        android:icon="@drawable/ic_key"
+        android:title="SSH" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
+</menu>
