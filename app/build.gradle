@@ -37,7 +37,6 @@ android {
         versionName "0.118.0"
 
         if (appVersionName) versionName = appVersionName
-        validateVersionName(versionName)
 
         buildConfigField "String", "TERMUX_PACKAGE_VARIANT", "\"" + project.ext.packageVariant + "\""
 
