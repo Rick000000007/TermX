@@ -1,41 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.termux.app">
+package com.termux.app
 
-    <!-- Internet -->
-    <uses-permission android:name="android.permission.INTERNET" />
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
-    <!-- Storage (Termux needs this) -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
+class MainActivity : ComponentActivity() {
 
-    <application
-        android:allowBackup="true"
-        android:label="TermX"
-        android:icon="@mipmap/ic_launcher"
-        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            TermXApp(this)
+        }
+    }
+}
 
-        <!-- 🔷 Modern Compose UI Launcher -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+@Composable
+fun TermXApp(activity: ComponentActivity) {
 
-        <!-- 🔥 Real Termux Backend Activity -->
-        <activity
-            android:name=".TermuxActivity"
-            android:exported="false" />
+    var selectedTab by remember { mutableStateOf(0) }
 
-        <!-- ⚙ Termux Background Service -->
-        <service
-            android:name=".TermuxService"
-            android:exported="false" />
+    val green = Color(0xFF2E7D32)
 
-    </application>
+    Scaffold(
+        bottomBar = {
+            NavigationBar {
+                NavigationBarItem(
+                    selected = selectedTab == 0,
+                    onClick = { selectedTab = 0 },
+                    icon = { Icon(Icons.Default.Terminal, null) },
+                    label = { Text("Terminal") }
+                )
+                NavigationBarItem(
+                    selected = selectedTab == 1,
+                    onClick = { selectedTab = 1 },
+                    icon = { Icon(Icons.Default.Inventory, null) },
+                    label = { Text("Packages") }
+                )
+                NavigationBarItem(
+                    selected = selectedTab == 2,
+                    onClick = { selectedTab = 2 },
+                    icon = { Icon(Icons.Default.Folder, null) },
+                    label = { Text("Files") }
+                )
+                NavigationBarItem(
+                    selected = selectedTab == 3,
+                    onClick = { selectedTab = 3 },
+                    icon = { Icon(Icons.Default.Key, null) },
+                    label = { Text("SSH") }
+                )
+                NavigationBarItem(
+                    selected = selectedTab == 4,
+                    onClick = { selectedTab = 4 },
+                    icon = { Icon(Icons.Default.Settings, null) },
+                    label = { Text("Settings") }
+                )
+            }
+        }
+    ) { padding ->
 
-</manifest>
+        Box(modifier = Modifier.padding(padding)) {
+
+            when (selectedTab) {
+                0 -> TerminalScreen(activity)
+                1 -> SimpleScreen("Packages")
+                2 -> SimpleScreen("Files")
+                3 -> SimpleScreen("SSH")
+                4 -> SimpleScreen("Settings")
+            }
+        }
+    }
+}
+
+@Composable
+fun TerminalScreen(activity: ComponentActivity) {
+    LaunchedEffect(Unit) {
+        activity.startActivity(Intent(activity, TermuxActivity::class.java))
+    }
+}
+
+@Composable
+fun SimpleScreen(title: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+    ) {
+        Text(text = title, style = MaterialTheme.typography.headlineLarge)
+    }
+    }
