@@ -1,40 +1,41 @@
-package com.termux.app;
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.termux.app">
 
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+    <!-- Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
-public class MainActivity extends AppCompatActivity {
+    <!-- Storage (Termux needs this) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    <application
+        android:allowBackup="true"
+        android:label="TermX"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        <!-- 🔷 Modern Compose UI Launcher -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-        bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
+        <!-- 🔥 Real Termux Backend Activity -->
+        <activity
+            android:name=".TermuxActivity"
+            android:exported="false" />
 
-            if (item.getItemId() == R.id.nav_terminal)
-                selectedFragment = new TerminalFragment();
-            else if (item.getItemId() == R.id.nav_packages)
-                selectedFragment = new PackagesFragment();
-            else if (item.getItemId() == R.id.nav_files)
-                selectedFragment = new FilesFragment();
-            else if (item.getItemId() == R.id.nav_ssh)
-                selectedFragment = new SSHFragment();
-            else if (item.getItemId() == R.id.nav_settings)
-                selectedFragment = new SettingsFragment();
+        <!-- ⚙ Termux Background Service -->
+        <service
+            android:name=".TermuxService"
+            android:exported="false" />
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, selectedFragment)
-                    .commit();
+    </application>
 
-            return true;
-        });
-
-        bottomNav.setSelectedItemId(R.id.nav_terminal);
-    }
-}
+</manifest>
